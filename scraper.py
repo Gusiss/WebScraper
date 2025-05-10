@@ -7,7 +7,6 @@ class Scraper:
         cats = []
         # Find all cat entries in the HTML
         for cat in soup.find_all('div', class_='item clearfix'):
-            print(cat)  # Print the raw HTML of each cat entry for debugging
             try:
                 # Extract the name
                 name = cat.find('h2').find('a').text.strip()
@@ -30,14 +29,25 @@ class Scraper:
         import requests
         from bs4 import BeautifulSoup
 
-        # Fetch the HTML content of the page
-        response = requests.get(self.url)
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.content, 'html.parser')
-            print(soup.prettify())  # Print the raw HTML for debugging
-            self.data = self.parse_data(soup)
-        else:
-            print("Failed to retrieve data from the website.")
+        current_url = self.url  # Start with the initial URL
+        while current_url:
+            response = requests.get(current_url)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.content, 'html.parser')
+                self.data.extend(self.parse_data(soup))  # Append data from the current page
+                
+                # Find the "Next" page link
+                next_page = soup.find('a', class_='next')  # Replace 'next' with the actual class or ID for the "Next" button
+                if next_page:
+                    current_url = next_page['href']  # Update the URL to the next page
+                    if not current_url.startswith('http'):
+                        # Handle relative URLs
+                        current_url = f"http://www.dzd.lv{current_url}"
+                else:
+                    current_url = None  # Stop if no "Next" page is found
+            else:
+                print("Failed to retrieve data from the website.")
+                break
 
     def get_data(self):
         return self.data
