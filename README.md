@@ -14,9 +14,15 @@ Projekts izmanto šādas datu struktūras:
   - `name`: kaķa vārds.
   - `description`: īss apraksts par kaķi.
   - `link`: saite uz detalizētu informāciju par kaķi.
+  - `gender`: kaķa dzimums (mātīte/tēviņš).
+  - `date`: uzņemšanas datums kā `datetime.date` objekts (kārtotam sarakstam).
+  - `original_date`: uzņemšanas datums oriģinālajā formātā (lietotāja ērtībai).
 
 ## Lietošanas instrukcija
-1. Klonējiet šo repozitoriju uz savu datoru.
+1. Klonējiet šo repozitoriju uz savu datoru:
+   ```bash
+   git clone <repo-url>
+   ```
 2. Instalējiet nepieciešamās bibliotēkas, izmantojot komandu:
    ```bash
    pip install -r requirements.txt
@@ -29,70 +35,14 @@ Projekts izmanto šādas datu struktūras:
    - Ievadiet `1`, lai apskatītu kaķus adopcijas centrā.
    - Ievadiet `2`, lai apskatītu kaķus hosteļa sadaļā.
 5. Skripts iegūs un parādīs kaķu sarakstu no izvēlētās sadaļas.
-
-## Testēšana
-Lai pārbaudītu, vai skrāpis darbojas pareizi, veiciet šādas darbības:
-1. Pārliecinieties, ka `main.py` fails satur šādu kodu:
-   ```python
-   from scraper import Scraper
-
-   def test_scraper():
-       print("Izvēlieties, kuru sadaļu vēlaties apskatīt:")
-       print("1. Kaķi adopcijas centrā")
-       print("2. Kaķi hosteļa sadaļā")
-       
-       choice = input("Ievadiet savu izvēli (1 vai 2): ").strip()
-       
-       if choice == "1":
-           url = "http://www.dzd.lv/mekle-majas/dzivnieks/"
-       elif choice == "2":
-           url = "http://www.dzd.lv/mekle-majas/hostelis/"
-       else:
-           print("Nederīga izvēle. Lūdzu, mēģiniet vēlreiz.")
-           return
-       
-       # Inicializē skrāpi
-       scraper = Scraper(url)
-       
-       # Iegūst datus
-       scraper.fetch_data()
-       
-       # Parāda datus
-       data = scraper.get_data()
-       if data:
-           print("Kaķi, kas atrasti visās lapās:\n")
-           for index, cat in enumerate(data, start=1):
-               print(f"Kaķis #{index}")
-               print(f"Vārds: {cat['name']}")
-               print(f"Apraksts: {cat['description']}")
-               print(f"Saite: {cat['link']}")
-               print("-" * 40)
-       else:
-           print("Netika atrasti kaķi.")
-
-   if __name__ == "__main__":
-       test_scraper()
-   ```
-2. Palaidiet skriptu:
-   ```bash
-   python main.py
-   ```
-3. Rezultātā terminālā tiks parādīts kaķu saraksts no izvēlētās sadaļas, piemēram:
-   ```plaintext
-   Kaķi, kas atrasti visās lapās:
-
-   Kaķis #1
-   Vārds: Masja
-   Apraksts: Masja līdz šim bijis mājas kaķītis.
-   Saite: http://www.dzd.lv/mekle-majas/dzivnieks/masja-2/
-   ----------------------------------------
-
-   Kaķis #2
-   Vārds: Nensija
-   Apraksts: Nensija mitinājās netālu no Dienvidu tilta, Bauskas ielā, kādā mazdārziņā.
-   Saite: http://www.dzd.lv/mekle-majas/dzivnieks/nensija/
-   ----------------------------------------
-   ```
+6. Izvēlieties, vai vēlaties filtrēt vai kārtot datus:
+   - Ievadiet `1`, lai filtrētu pēc dzimuma:
+     - Ievadiet `mātīte`, lai parādītu tikai mātītes.
+     - Ievadiet `tēviņš`, lai parādītu tikai tēviņus.
+   - Ievadiet `2`, lai kārtotu pēc uzņemšanas datuma:
+     - Ievadiet `jā`, lai kārtotu dilstošā secībā (no jaunākā uz vecāko).
+     - Ievadiet `nē`, lai kārtotu augošā secībā (no vecākā uz jaunāko).
+   - Ievadiet `3`, lai parādītu visus datus bez filtrēšanas vai kārtošanas.
 
 ## Autori
 Šo projektu izstrādāja [Gustavs Šics].

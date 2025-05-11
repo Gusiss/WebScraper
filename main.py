@@ -1,4 +1,5 @@
 from scraper import Scraper
+from filters import filter_by_gender, sort_by_date
 
 def test_scraper():
     print("Izvēlieties, kuru sadaļu vēlaties apskatīt:")
@@ -14,23 +15,35 @@ def test_scraper():
     else:
         print("Nederīga izvēle. Lūdzu, mēģiniet vēlreiz.")
         return
-    
-    # Initialize the scraper
+      
     scraper = Scraper(url)
-    
-    # Fetch data
     scraper.fetch_data()
-    
-    # Get and print the data
     data = scraper.get_data()
+
     if data:
+        print("Vai vēlaties filtrēt vai kārtot datus?")
+        print("1. Filtrēt pēc dzimuma")
+        print("2. Kārtot pēc uzņemšanas datuma")
+        print("3. Parādīt visus datus")
+        
+        filter_choice = input("Ievadiet savu izvēli (1-4): ").strip()
+        
+        if filter_choice == "1":
+            gender = input("Ievadiet dzimumu (mātīte/tēviņš): ").strip()
+            data = filter_by_gender(data, gender)
+        elif filter_choice == "2":
+            reverse = input("Kārtot dilstošā secībā? (jā/nē): ").strip().lower() == "jā"
+            data = sort_by_date(data, reverse=reverse)
+        
         print("Kaķi, kas atrasti visās lapās:\n")
         for index, cat in enumerate(data, start=1):
             print(f"Kaķis #{index}")
             print(f"Vārds: {cat['name']}")
+            print(f"Dzimums: {cat['gender']}")
+            print(f"Uzņemšanas datums: {cat['original_date']}")
             print(f"Apraksts: {cat['description']}")
             print(f"Saite: {cat['link']}")
-            print("-" * 40)  # Separator for better readability
+            print("-" * 40)
     else:
         print("Netika atrasti kaķi.")
 
