@@ -26,7 +26,7 @@ def test_scraper():
         print("2. Kārtot pēc uzņemšanas datuma")
         print("3. Parādīt visus datus")
         
-        filter_choice = input("Ievadiet savu izvēli (1-4): ").strip()
+        filter_choice = input("Ievadiet savu izvēli (1-3): ").strip()
         
         if filter_choice == "1":
             gender = input("Ievadiet dzimumu (mātīte/tēviņš): ").strip()
