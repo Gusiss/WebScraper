@@ -18,6 +18,20 @@ Projekts izmanto šādas datu struktūras:
   - `date`: uzņemšanas datums kā `datetime.date` objekts (kārtotam sarakstam).
   - `original_date`: uzņemšanas datums oriģinālajā formātā (lietotāja ērtībai).
 
+## Funkcionalitāte
+Šis tīmekļa skrāpis piedāvā šādas iespējas:
+- **Datu iegūšana**: Automātiski iegūst informāciju par kaķiem no adopcijas centra un hosteļa sadaļām.
+- **Filtrēšana**: Lietotājs var filtrēt kaķus pēc dzimuma (mātīte vai tēviņš).
+- **Kārtošana**: Lietotājs var kārtot kaķus pēc uzņemšanas datuma augošā vai dilstošā secībā.
+- **Datu parādīšana**: Parāda detalizētu informāciju par katru kaķi, tostarp vārdu, dzimumu, aprakstu un saiti uz detalizētu informāciju.
+
+## Tehniskā darbība
+1. **HTTP pieprasījumi**: Skripts izmanto `requests` bibliotēku, lai iegūtu HTML saturu no tīmekļa vietnes.
+2. **Datu analīze**: Ar `BeautifulSoup` palīdzību tiek analizēts HTML un izvilkti nepieciešamie dati.
+3. **Datu struktūras**: Informācija par kaķiem tiek saglabāta vārdnīcu sarakstā, kas ļauj viegli veikt filtrēšanu un kārtošanu.
+4. **Lietotāja mijiedarbība**: Skripts piedāvā interaktīvu izvēlni, kur lietotājs var izvēlēties sadaļu, filtrēšanas un kārtošanas opcijas.
+
+
 ## Lietošanas instrukcija
 1. Klonējiet šo repozitoriju uz savu datoru:
    ```bash

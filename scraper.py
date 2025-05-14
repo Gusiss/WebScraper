@@ -33,6 +33,7 @@ class Scraper:
             return datetime.strptime(date_str, "%d.%B,%Y").date()
         except ValueError:
             return None  
+        
 
     def parse_data(self, soup):
         cats = []

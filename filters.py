@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def filter_by_gender(cats, gender):
     return [cat for cat in cats if cat['gender'].lower() == gender.lower()]
 
